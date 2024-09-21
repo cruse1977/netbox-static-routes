@@ -13,3 +13,4 @@ class StaticRouteSerializer(NetBoxModelSerializer):
         fields = (
             'id', 'url', 'display', 'destination_prefix', 'next_hop', 'site', 'device', 'vrf', 'comments', 'tags', 'custom_fields', 'created', 'last_updated'
         )
+        brief_fields = ('display', 'id', 'url')

@@ -5,8 +5,7 @@ from django.urls import reverse
 from rest_framework import status
 from utilities.testing import APITestCase, APIViewTestCases
 
-from netbox_static_routes.choices import StaticRoute
-from netbox_static_routes.models import *
+from netbox_static_routes.models import StaticRoute
 
 
 class AppTest(APITestCase):
@@ -15,15 +14,15 @@ class AppTest(APITestCase):
         response = self.client.get(f"{url}?format=api", **self.header)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-'''class ACLTestCase(
 
+class ACLTestCase(
     APIViewTestCases.APIViewTestCase,
 ):
     """Test the AccessList Test"""
 
     model = StaticRoute
     view_namespace = "plugins-api:netbox_static_routes"
-    brief_fields = ["display", "id", "name", "url"]
+    brief_fields = ["display", "id", "url"]
 
     @classmethod
     def setUpTestData(cls):
@@ -47,12 +46,22 @@ class AppTest(APITestCase):
             role=devicerole,
         )
         prefix_1 = Prefix.objects.create(
-            prefix='1.1.1.0/24',
-            slug="pfx-1-1-10"
+            prefix='10.1.1.0/24'
         )
         prefix_2 = Prefix.objects.create(
-            prefix='2.2.2.0/24',
-            slug='pfx-2-2-2-0'
+            prefix='10.2.2.0/24'
+        )
+        prefix_3 = Prefix.objects.create(
+            prefix='10.3.3.0/24'
+        )
+        prefix_4 = Prefix.objects.create(
+            prefix='10.4.4.0/24'
+        )
+        prefix_5 = Prefix.objects.create(
+            prefix='10.5.5.0/24'
+        )
+        prefix_6 = Prefix.objects.create(
+            prefix='10.6.6.0/24'
         )
         static_routes = (
             StaticRoute(
@@ -63,11 +72,36 @@ class AppTest(APITestCase):
             StaticRoute(
                 site=site,
                 device=device,
-                destination_prefix=prefix_2
+                destination_prefix=prefix_5
+            ),
+            StaticRoute(
+                site=site,
+                device=device,
+                destination_prefix=prefix_6
             ),
         )
         StaticRoute.objects.bulk_create(static_routes)
 
         cls.create_data = [
+            {
+                "site": site.id,
+                "device": device.id,
+                "destination_prefix": prefix_2.id,
+                "vrf": None,
+                "next_hop": ['10.1.1.1']
+            },
+            {
+                "site": site.id,
+                "device": device.id,
+                "destination_prefix": prefix_3.id,
+                "vrf": None,
+                "next_hop": ['10.1.1.1']
+            },
+            {
+                "site": site.id,
+                "device": device.id,
+                "destination_prefix": prefix_4.id,
+                "vrf": None,
+                "next_hop": ['10.1.1.1']
+            }
         ]
-'''
