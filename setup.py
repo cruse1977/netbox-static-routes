@@ -1,14 +1,67 @@
+"""
+Configuration for setuptools.
+"""
+import codecs
+import os.path
+
 from setuptools import find_packages, setup
 
+script_dir = os.path.abspath(os.path.dirname(__file__))
+
+with open(os.path.join(script_dir, "README.md"), encoding="utf-8") as fh:
+    long_description = fh.read().replace("(docs/img/", "(https://raw.githubusercontent.com/cruse1977/netbox-static-routes/release/docs/img/")
+
+
+def read(relative_path):
+    """
+    Read a file and return its contents.
+    """
+    with codecs.open(os.path.join(script_dir, relative_path), "r") as fp:
+        return fp.read()
+
+
+def get_version(relative_path):
+    """
+    Extract the version number from a file without importing it.
+    """
+    for line in read(relative_path).splitlines():
+        if not line.startswith("__version__"):
+            raise RuntimeError("Unable to find version string.")
+        delim = '"' if '"' in line else "'"
+        return line.split(delim)[1]
+
+
 setup(
-    name = 'netbox-static-routes',
-    version = '0.1', # would be nice to import the version from netbox_static_routes/version.py
-    description = 'Manage static routes in Netbox',
-    url = 'https://github.com/jbparrish17/netbox-static-routes',
-    author = 'Joshua Parrish',
-    license = 'Apache 2.0',
-    install_requires = [],
-    packages = find_packages(),
-    include_package_data = True,
-    zip_safe = False
+    name="netbox-static-routes",
+    version=get_version("netbox_static_routes/version.py"),
+    description="A NetBox plugin for Access List management",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/cruse1977/netbox-static-routes",
+    license="Apache 2.0",
+    install_requires=[],
+    python_requires=">=3.10",
+    packages=find_packages(),
+    include_package_data=True,
+    keywords=["netbox", "netbox-plugin"],
+    zip_safe=False,
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Natural Language :: English",
+        "License :: OSI Approved :: Apache Software License",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3 :: Only",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Intended Audience :: System Administrators",
+        "Intended Audience :: Telecommunications Industry",
+        "Framework :: Django",
+        "Topic :: System :: Networking",
+        "Topic :: Internet",
+    ],
+    project_urls={
+        "Issues": "https://github.com/netbox-community/netbox-acls/issues",
+        "Source": "https://github.com/netbox-community/netbox-acls",
+    },
 )
