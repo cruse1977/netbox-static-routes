@@ -60,6 +60,11 @@ class StaticRoute(NetBoxModel):
         ],
         verbose_name='Administrative distance'
     )
+
+    bfd = models.BooleanField(
+        default=False,
+        verbose_name="Bi-Directional Forwarding Detection"
+    )
     comments = models.TextField(
         blank=True
     )

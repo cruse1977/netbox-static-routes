@@ -21,8 +21,7 @@ class StaticRouteTable(NetBoxTable):
     vrf = tables.Column(
         linkify=True
     )
-
     class Meta(NetBoxTable.Meta):
         model = StaticRoute
-        fields = ('pk', 'id', 'name', 'site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'comments')
-        default_columns = ('pk', 'name', 'destination_prefix', 'next_hop', 'site', 'device', 'vrf')
+        fields = ('pk', 'id', 'name', 'site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'bfd', 'comments')
+        default_columns = ('pk', 'name', 'destination_prefix', 'next_hop', 'site', 'device', 'vrf', 'bfd')
