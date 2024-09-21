@@ -21,6 +21,7 @@ class NextHopTypeChoices(ChoiceSet):
     ]
 
 class StaticRoute(NetBoxModel):
+
     site = models.ForeignKey(
         to='dcim.Site',
         on_delete=models.PROTECT,

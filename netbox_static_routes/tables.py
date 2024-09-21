@@ -5,6 +5,7 @@ from django.urls import path
 
 
 class StaticRouteTable(NetBoxTable):
+
     destination_prefix = tables.Column(
         linkify=(
             ('plugins:netbox_static_routes:staticroute', {'pk': tables.A('pk')})
@@ -23,5 +24,5 @@ class StaticRouteTable(NetBoxTable):
 
     class Meta(NetBoxTable.Meta):
         model = StaticRoute
-        fields = ('pk', 'id', 'site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'comments')
-        default_columns = ('pk', 'destination_prefix', 'next_hop', 'site', 'device', 'vrf')
+        fields = ('pk', 'id', 'name', 'site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'comments')
+        default_columns = ('pk', 'name', 'destination_prefix', 'next_hop', 'site', 'device', 'vrf')

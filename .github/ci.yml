@@ -1,0 +1,33 @@
+---
+name: CI
+
+on:
+  push:
+  pull_request:
+
+
+# This ensures that previous jobs for the workflow are canceled when the ref is
+# updated.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# This ensures that previous jobs for the workflow are canceled when the ref is
+# updated.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Runs plugin tests
+    needs: run-lint
+    steps:
+      - id: git-checkout
+        name: Checkout
+        uses: actions/checkout@v4
+
+      - id: docker-test
+        name: Test the image
+        run: ./test.sh

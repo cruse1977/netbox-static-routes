@@ -12,12 +12,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('dcim', '0153_created_datetimefield'),
-        ('extras', '0073_journalentry_tags_custom_fields'),
-        ('ipam', '0057_created_datetimefield'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='StaticRoute',
