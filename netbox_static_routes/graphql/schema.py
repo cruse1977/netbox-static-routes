@@ -1,8 +1,8 @@
 import strawberry
 import strawberry_django
 from .types import StaticRouteType
-from ..models import StaticRoute
 from typing import List
+
 
 @strawberry.type(name="Query")
 class NetBoxStaticRoutesQuery:

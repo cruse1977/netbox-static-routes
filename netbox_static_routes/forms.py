@@ -5,6 +5,7 @@ from netbox.forms import NetBoxModelForm, NetBoxModelFilterSetForm, NetBoxModelB
 from .models import StaticRoute
 from utilities.forms.fields import CommentField, DynamicModelChoiceField
 
+
 class StaticRouteForm(NetBoxModelForm):
     site = DynamicModelChoiceField(
         queryset=Site.objects.all(),
@@ -27,11 +28,17 @@ class StaticRouteForm(NetBoxModelForm):
             'vrf_id': '$vrf'
         }
     )
+
+    bfd = forms.BooleanField(
+        required=False,
+        label="Bi-Directional Forwarding Detection"
+    )
     comments = CommentField()
 
     class Meta:
         model = StaticRoute
-        fields = ('site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'comments', 'tags')
+        fields = ('site', 'device', 'vrf', 'destination_prefix', 'next_hop', 'distance', 'bfd', 'comments', 'tags')
+
 
 class StaticRouteFilterForm(NetBoxModelFilterSetForm):
     model = StaticRoute
@@ -55,6 +62,7 @@ class StaticRouteFilterForm(NetBoxModelFilterSetForm):
         queryset=Prefix.objects.all(),
         required=False
     )
+
 
 class StaticRouteBulkEditForm(NetBoxModelBulkEditForm):
     model = StaticRoute
