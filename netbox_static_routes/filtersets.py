@@ -5,7 +5,7 @@ class StaticRouteFilterSet(NetBoxModelFilterSet):
 
     class Meta:
         model = StaticRoute
-        fields = ('id', 'site', 'device', 'vrf', 'destination_prefix')
+        fields = ('id', 'site', 'scope_id', 'vrf', 'destination_prefix')
 
     def search(self, queryset, name, value):
         return queryset.filter(description__icontains=value)
