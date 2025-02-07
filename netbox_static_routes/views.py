@@ -2,22 +2,29 @@ from netbox.views import generic
 from dcim.models import Device
 from virtualization.models import VirtualMachine
 from . import filtersets, forms, models, tables
+from .models import StaticRoute
 from utilities.views import ViewTab, register_model_view
 from django.shortcuts import render
 
+
+@register_model_view(StaticRoute)
 class StaticRouteView(generic.ObjectView):
     queryset = models.StaticRoute.objects.all()
 
+@register_model_view(StaticRoute, 'list', path='', detail=False)
 class StaticRouteListView(generic.ObjectListView):
     queryset = models.StaticRoute.objects.all()
     table = tables.StaticRouteTable
     filterset = filtersets.StaticRouteFilterSet
     filterset_form = forms.StaticRouteFilterForm
 
+@register_model_view(StaticRoute, 'add', detail=False)
+@register_model_view(StaticRoute, 'edit')
 class StaticRouteEditView(generic.ObjectEditView):
     queryset = models.StaticRoute.objects.all()
     form = forms.StaticRouteForm
 
+@register_model_view(StaticRoute, 'delete')
 class StaticRouteDeleteView(generic.ObjectDeleteView):
     queryset = models.StaticRoute.objects.all()
 

@@ -1,16 +1,9 @@
-from django.urls import path
+from django.urls import path, include
+from utilities.urls import get_model_urls
 from netbox.views.generic import ObjectChangeLogView
-from . import models, views
+from . import views
 
 urlpatterns = (
-    path('static-routes/', views.StaticRouteListView.as_view(), name='staticroute_list'),
-    path('static-routes/add/', views.StaticRouteEditView.as_view(), name='staticroute_add'),
-    path('static-routes/edit/', views.StaticRouteEditView.as_view(), name='staticroute_bulk_edit'),
-    path('static-routes/delete/', views.StaticRouteDeleteView.as_view(), name='staticroute_bulk_delete'),
-    path('static-routes/<int:pk>', views.StaticRouteView.as_view(), name='staticroute'),
-    path('static-routes/<int:pk>/edit/', views.StaticRouteEditView.as_view(), name='staticroute_edit'),
-    path('static-routes/<int:pk>/delete/', views.StaticRouteDeleteView.as_view(), name='staticroute_delete'),
-    path('static-routes/<int:pk>/changelog/', ObjectChangeLogView.as_view(), name='staticroute_changelog', kwargs={
-        'model': models.StaticRoute
-    }),
+    path('static-routes/', include(get_model_urls('netbox_static_routes', 'staticroute', detail=False))),
+    path('static-routes/<int:pk>', include(get_model_urls('netbox_static_routes', 'staticroute')))
 )

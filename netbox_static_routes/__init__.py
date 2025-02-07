@@ -10,8 +10,8 @@ class NetBoxStaticRoutesConfig(PluginConfig):
     author_email = 'cruse1977123@gmail.com'
     base_url = 'static-routes'
     required_settings = []
-    min_version = '4.1.0'
-    max_version = '4.1.20'
+    min_version = '4.2.0'
+    max_version = '4.2.20'
     default_settings = {}
 
 config = NetBoxStaticRoutesConfig
